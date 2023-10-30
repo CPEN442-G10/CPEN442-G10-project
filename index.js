@@ -14,4 +14,8 @@ app.get("/hello", (req, res) => {
 
 app.use(loginRouter);
 
-app.listen(3000);
+const PORT = 3000;
+app.listen(PORT, () => {
+    console.log(`Server started on http://localhost:${PORT}`);
+    require("openurl").open(`http://localhost:${PORT}`);
+});
