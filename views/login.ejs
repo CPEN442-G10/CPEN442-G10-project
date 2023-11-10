@@ -5,19 +5,19 @@
 </head>
 
 <body>
-   <!-- <%- include('./common/navbar.ejs') %> -->
     <h1><b>XSSS</b></h1>
     <!-- <main> -->
-        <form class="form-card" id="login-form" action="" method="POST">
+        <form class="form-card" id="login-form" action="/login" method="POST">
             <h2>Log In</h2>
             <div class="form-control">
-                <label for="ID">Your ID</label>
-                <input type="text" name="ID" id="ID">
+                <label for="username">Your ID</label>
+                <input type="text" name="username" id="username">
             </div>
             <div class="form-control">
                 <label for="password">Password</label>
                 <input type="password" name="password" id="password">
             </div>
+            <!-- <input type="hidden" name="userID" value="testID" /> -->
             <!-- TODO -->
             <button class="btn" type="submit">Log In</button>
             <div>
@@ -27,21 +27,21 @@
             </div>
         </form>
 
-        <form class="form-card" id="signup-form" action="" method="POST">
+        <form class="form-card" id="signup-form" action="/signup" method="POST">
             <h2>Sign Up</h2>
             <div class="form-control">
-                <label for="signupID">ID:</label>
-                <input type="text" id="signupID" name="signupID">
+                <label for="signupUsername">ID:</label>
+                <input type="text" id="signupUsername" name="signupUsername">
             </div>
             <div class="form-control">
                 <label for="signupPassword">Password:</label>
                 <input type="password" id="signupPassword" name="signupPassword" />
             </div>
-            <div class="form-control">
+            <!-- <div class="form-control">
                 <label for="signupPasswordConfirm">Confirm Password:</label>
                 <input type="password" id="signupPasswordConfirm" name="signupPasswordConfirm" />
-            </div>
-            <button type="button" onclick="submitSignupForm()">Sign Up</button>
+            </div> -->
+            <button class="btn" type="submit">Sign Up</button>
             <div>
                 <span>Already have an account? </span>
                 <!-- <a href="" onclick="toggleForm('login-form')">Login</a> -->

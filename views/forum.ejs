@@ -1,0 +1,68 @@
+<%- include('./common/head.ejs') %>
+    <link rel="stylesheet" href="/css/forum.css">
+</head>
+<body>
+
+<%- include('./common/navbar.ejs') %>
+<div class="container">
+  <nav class="left-menu">
+    <div class="forum-topic active">Course Logistic</div>
+    <div class="forum-topic">Assignments</div>
+    <div class="forum-topic">Exam</div>
+    <div class="forum-topic">Off-topic</div>
+    <div class="forum-topic">CourseFeedback</div>
+    <!-- More topics here -->
+  </nav>
+
+  <div class="forum-container">
+    <div class="forum-posts">
+      <div class="post">
+        <h3>User A</h3>
+        <p>This is an example post in the forum styled as a card.</p>
+      </div>
+      <div class="post">
+        <h3>User B</h3>
+        <p>Here's another insightful post, also styled as a card.</p>
+      </div>
+      <div class="post">
+        <h3>User C</h3>
+        <p>Further discussion on the topic can be found here.</p>
+      </div>
+      <div class="post">
+        <h3>User D</h3>
+        <p>Additional commentary and insights are presented in this post.</p>
+      </div>
+      <div class="post">
+        <h3>User C</h3>
+        <p>Further discussion on the topic can be found here.</p>
+      </div>
+      <div class="post">
+        <h3>User D</h3>
+        <p>Additional commentary and insights are presented in this post.</p>
+      </div>
+      <div class="post">
+        <h3>User C</h3>
+        <p>Further discussion on the topic can be found here.</p>
+      </div>
+      <div class="post">
+        <h3>User D</h3>
+        <p>Additional commentary and insights are presented in this post.</p>
+      </div>
+    </div>
+    <form class="add-post-form" action="/add-post">
+      <textarea name="postContent" required></textarea>
+      <input type="submit" />
+    </form>
+  </div>
+</div>
+
+<!-- <div class="footer">
+  <p>Forum &copy; 2023</p>
+</div> -->
+
+<script>
+  // JavaScript for interactivity goes here
+</script>
+
+</body>
+</html>

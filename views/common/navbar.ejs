@@ -1,12 +1,10 @@
-<header class="main-header">
-  <nav class="main-header__nav">
-    <ul class="main-header__item-list">
-      <li class="main-header__item">
-        <a class="<%= path === '/' ? 'active' : ''%>" href="/">Profile</a>
-      </li>
-      <li class="main-header__item">
-        <a class="<%= path === '/forum' ? 'active' : ''%>" href="/forum">Forum</a>
-      </li>
-    </ul>
-  </nav>
-</header>
+<nav class="navbar">
+  <div>
+    <a class="<%= path === '/' ? 'active' : ''%>"class="active" href="/">Home</a>
+    <a class="<%= path === '/forum' ? 'active' : ''%>"class="active" href="/forum">Forum</a>
+  </div>
+  <form class="logout-form" action="/logout" method="POST">
+    <a class="<%= path === '/profile' ? 'active' : ''%>"class="active" href="/hints">My Profile</a>
+    <input type="submit" value="Logout" />
+  </form>
+</nav>
