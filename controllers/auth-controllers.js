@@ -24,8 +24,8 @@ exports.logoutAction = (req, res, next) => {
 }
 
 exports.signupAction = (req, res, next) => {
-    console.log(req.body);
-    return;
+    // console.log(req.body);
+    // return;
     const salt = crypto.randomBytes(16);
     crypto.pbkdf2(req.body.signupPassword, salt, 310000, 32, 'sha256', function(err, hashedPassword) {
       if (err) { return next(err); }

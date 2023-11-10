@@ -7,6 +7,7 @@ var session = require('express-session');
 var SQLiteStore = require('connect-sqlite3')(session);
 const {router: authRouter} = require("./routes/auth-routes");
 const forumRouter = require("./routes/forum-routes");
+
 app.set("view engine", "ejs");
 app.set("views", "views");
 
