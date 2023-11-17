@@ -23,7 +23,7 @@ app.use(session({
   cookie: {
     httpOnly: false,
     secure: false,
-    maxAge: 1000*60*5,
+    maxAge: 1000*60*30,
   }
 }));
 app.use(passport.authenticate('session'));
