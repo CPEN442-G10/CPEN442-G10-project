@@ -1,0 +1,40 @@
+<%- include('./common/head.ejs') %>
+    <link rel="stylesheet" href="/css/reflected.css">
+</head>
+<%- include('./common/navbar.ejs') %>
+<div class="container">
+  <div class="vote-container">
+    <form class="vote-form" method="get" action="/vote">
+      <h1>Nerds4Nerds Developer Survey</h3>
+        <label for="vote">What do you think is the best programming language?</label>
+        <input type="text" id="vote" name="vote"/>
+        <input type="submit" />
+    <div>
+        <button id="reset-form">
+          Reset Form
+        </button>
+      <% if (vote) { %>
+        <div>
+          <p class="vote-summary-text">Your vote has been recorded. Thank you for voting for <%- vote %>.</p>
+        </div>
+      <% } %>
+    </div>
+  </div>
+
+  <div class="instructions">
+    <p>
+      > You are Mallory and want to phish people so you can vote for your favourite vulnerable language (C). You notice a XSS vulnerability on the website and plan your attack.
+      
+      Craft a URL that will phish other developers into voting for your favourite language C.
+    </p>
+    <div>
+      <form class="vote-form" method="post" action="/vote">
+        <label for="answer">Craft Malicious URL</label>
+        <input type="text" id="answer" name="answer"/>
+        <input type="submit" value="Check Answer"/>
+      </form>
+    </div>
+  </div>
+</div>
+<script src="/js/reflected.js"></script>
+<%- include('./common/end.ejs') %>
