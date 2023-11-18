@@ -1,0 +1,15 @@
+<div class="forum-posts" data-hint="Posts posted here are free of injected scripts. Search up and find out how the HTML are escaped to prevent script injection.">
+    <div class="post" >
+      <h3>Bob</h3>
+      <p>
+        Welcome to the safe zone!
+      </p>
+    </div>
+    <% for (let post of safePosts) { %>
+    <div class="post" >
+      <h3><%= post.username %> </h3>
+      <i><%= post.creation_date %></i>
+      <p><%= post.content %></p>
+    </div>
+    <% } %>
+</div>
