@@ -7,7 +7,6 @@ const crypto = require('crypto');
 const db = require("../db");
 
 passport.use(new LocalStrategy(function verify(username, password, cb) {
-  //   console.log(username, password, "hah");
   db.get('SELECT * FROM users WHERE username = ?', [username], function (err, row) {
     if (err) { return cb(err); }
     if (!row) { return cb(null, false, { message: 'Incorrect username or password.' }); }
@@ -40,7 +39,7 @@ const loginAuthenticator = passport.authenticate("local", {
 })
 
 const routeProtector = (req, res, next) => {
-  console.log(req.user);
+  // console.log(req.user);
   if (!req.user) {
     return res.redirect("/login");
   }

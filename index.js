@@ -15,28 +15,21 @@ app.set("view engine", "ejs");
 app.set("views", "views");
 
 app.use(express.static(path.join(__dirname, "public")));
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
-  })
-);
-app.use(
-  session({
-    secret: "keyboard cat",
-    resave: false,
-    saveUninitialized: false,
-    store: new SQLiteStore({
-      db: "sessions.db",
-      dir: "./db",
-    }),
-    cookie: {
-      httpOnly: false,
-      secure: false,
-      maxAge: 1000 * 60 * 5 * 60,
-    },
-  })
-);
-app.use(passport.authenticate("session"));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false,
+  store: new SQLiteStore({ db: 'sessions.db', dir: './db' }),
+  cookie: {
+    httpOnly: false,
+    secure: false,
+    maxAge: 1000*60*30,
+  }
+}));
+app.use(passport.authenticate('session'));
 
 app.use("/", authRouter);
 app.use("/", forumRouter);
