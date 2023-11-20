@@ -1,38 +1,106 @@
 <%- include('./common/head.ejs') %>
-    <link rel="stylesheet" href="/css/reflected.css">
+<link rel="stylesheet" href="/css/reflected.css">
 </head>
 <%- include('./common/navbar.ejs') %>
 <div class="container">
+  <div class="instruction-container">
+    <p class="instruction-text">
+      You are Mallory and notice a reflected XSS vulnerability on this website's survey. Craft a URL that can be used in a phishing email to steal another user's cookie.
+    </p>
+    <p>
+      Assume you have a magic function <code>steal(x)</code> that pushes data <code>x</code> to your malicious database.
+    </p>
+  </div>
   <div class="vote-container">
-    <form class="vote-form" method="get" action="/vote">
-      <h1>Nerds4Nerds Developer Survey</h3>
-        <label for="vote">What do you think is the best programming language?</label>
-        <input type="text" id="vote" name="vote"/>
-        <input type="submit" />
-    <div>
-        <button id="reset-form">
-          Reset Form
-        </button>
+    <form class="vote-form" method="GET" action="/vote">
+      <h1>FizzBuzzFeed User Survey</h1>
+      <label for="vote">What was the best movie released this year?</label>
+      <input type="text" id="vote" name="vote" />
+      <button type="submit">Submit</button>
+    </form>
+    <button id="reset-form">
+      Reset Form
+    </button>
+    <div class="confirmation">
       <% if (vote) { %>
-        <div>
-          <p class="vote-summary-text">Your vote has been recorded. Thank you for voting for <%- vote %>.</p>
-        </div>
+      <p class="vote-summary-text" data-hint="Look at the website's URL. How does it relate to the vote you submitted?">
+        Your vote has been recorded. Thank you for voting for <%- vote %>.
+      </p>
+      <% if (tried_script) { %>
+      <p class="warning-text" data-hint="This server has a naive way of dealing with attempted. Try using an image with a non-existent source called 'x'.">Warning: User attempted reflected XSS with script tag.</p>
+      <% } %>
       <% } %>
     </div>
   </div>
+  <div class="answer-container">
+    <form class="answer-form" method="post" action="/answer">
+      <label for="answer">Enter your answer</label>
+      <input type="text" id="answer" name="answer" />
+      <button type="submit">Check URL</button>
+    </form>
+    <div class="answer-status-container">
+      <% if(answer_status == "correct"){ %>
+      <div class="answer-status">
+        <p class="correct">Well done! Let's learn more about how to defend reflected XSS attacks...</p>
+      </div>
+      <div class="lesson">
+        <h1>Defending against Reflected XSS</h1>
+        <h2 class="role-title">
+          As a User
+        </h2>
+        <ul class="user-list">
+          <li>
+            <h3>Vigilance</h3>
+            <p>
+              Reflected XSS requires an adversary to createa a malicious URL and trick people into clicking on that malicious link. This is often through including within a hyperlink in a context such as a phishing email or public comment section.
+              Being vigilant means to avoid clicking on suspicious links from untrusted sources.
+            </p>
+          </li>
+        </ul>
+        <h2 class="role-title">
+          As a Developer
+        </h2>
+        <ul class="dev-list">
+          <li>
+            <h3>Server Side Mediation</h3>
+            <p>
+              We do server side mediation because client-side mediation is not sufficient for all security purposes. We cannot rely on client-side JavaScript code to validate the input.
+            </p>
+            <p>
+              Additionally, on the Internet, we treat all other users as adversaries. This means we do not trust any input they provide us, even if they are non-malicious.
+            </p>
+            <h4>What happens if:</h4>
+            <ol>
+              <li>The user turns of JavaScript?</li>
+              <li>Users interact with the web server directly instead of using the browser?</li>
+            </ol>
+            <p>
+              The server in this exercise had a naive way of dealing with attempted XSS using <code>&lt;script&gt; ... &lt;/script&gt;</code> tags, which was to remove them altogether. But, what if someone wants to send a code snippet? We need to be able to support this.
+            </p>
+            <h3>Escaping</h3>
+            <p>
+              We want a solution that in fact replaces characters with another representation that is non-malicious. This type of approach is called <i>escaping</i>. For example, the way <code>&lt;script&gt; ... &lt;/script&gt;</code> can be rendered safely is by replacing <i>&lt;</i> with <i>&<span>lt</span>;</i> and <i>&gt;</i> with <i>&<span>gt</span>;</i>. This prevents it from being interpreted as an HTML element.
 
-  <div class="instructions">
-    <p>
-      > You are Mallory and want to phish people so you can vote for your favourite vulnerable language (C). You notice a XSS vulnerability on the website and plan your attack.
-      
-      Craft a URL that will phish other developers into voting for your favourite language C.
-    </p>
-    <div>
-      <form class="vote-form" method="post" action="/vote">
-        <label for="answer">Craft Malicious URL</label>
-        <input type="text" id="answer" name="answer"/>
-        <input type="submit" value="Check Answer"/>
-      </form>
+              Here is a full cheat sheet of escaping in HTML contexts <a href="https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html#output-encoding-for-html-contexts">here</a>. (Don't worry, this isn't a malicious link!)
+            </p>
+            <h3>Avoid Unsafe HTML Attributes</h3>
+            <p>
+              When rendering user input stored in variables, some ways are safer than others. This is because certain HTML attributes only interpret user input as text and will never execute it. These safe attributes are often referred to as <i>safe sinks</i> and often have an unsafe sink associated with them. One example is the unsafe sink <code>innerHTML</code> and the safe sink <code>textContent</code>.
+            </p>
+            <p>
+              Learn more about safe sinks <a href="https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html#safe-sinks">here</a> and see a full comprehensive list of safe sinks <a href="https://github.com/cure53/DOMPurify/blob/main/src/attrs.js">created by the DOMPurify library</a>.
+            </p>
+          </li>
+        </ul>
+        <div class="tip">
+          To mitigate number of XSS bugs in your next web app, consider developing with a modern web framework such as <code>React.js</code> or <code>Angular.js</code>. This is only a start point though, as they are not perfect. So, understanding the safe practices outlined above is still valuable. 
+        </div>
+      </div>
+      <% } else if(answer_status == "incorrect") { %>
+      <div class="answer-status">
+        <p class="incorrect" data-hint="You may have tried to insert a HTML script tag, but this server has a naive way of addressing that. Try using an image with a non-existent source called 'x'.">Wrong Answer</p>
+      </div>
+      <% } %>
     </div>
   </div>
 </div>

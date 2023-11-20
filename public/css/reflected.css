@@ -1,84 +1,242 @@
-/* Reset some default styles for better consistency */
-body, h1, h3, p, label, input, button {
+/* Reset some default styles */
+body,
+h1,
+p form {
   margin: 0;
   padding: 0;
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Arial", sans-serif;
+  background-color: #f0f0f0;
 }
 
 .container {
   max-width: 800px;
-  margin: 0 auto;
-}
-
-.vote-container {
-  background-color: #f5f5f5;
+  margin: 20px auto;
+  background-color: #fff;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin: 0 auto; /* Center the vote container */
+}
+
+.instruction-container {
+  text-align: center;
   margin-bottom: 20px;
 }
 
-h1 {
-  margin-bottom: 15px;
-  font-size: 2em; /* Increase font size for the main heading */
+.instruction-text {
+  color: #333;
+  font-weight: bold;
+}
+
+.vote-container {
+  text-align: center;
+  margin-bottom: 20px;
+  position: relative;
 }
 
 .vote-form {
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 20px;
 }
 
 label {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   font-weight: bold;
 }
 
-input[type="text"], input[type="submit"], #reset-form {
-  margin-top: 10px;
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
 }
 
-input[type="text"], input[type="submit"], #reset-form, #answer {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-input[type="submit"], #reset-form {
-  background-color: #4caf50;
+button {
+  background-color: #007bff;
   color: #fff;
+  padding: 10px 20px;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
-input[type="submit"]:hover, #reset-form:hover {
-  background-color: #45a049;
+button:hover {
+  background-color: #0056b3;
+}
+
+#reset-form {
+  margin-top: 10px;
+  color: #fff;
+  background-color: #dc3545;
+}
+
+#reset-form:hover {
+  background-color: #c82333;
+}
+
+.confirmation {
+  margin-top: 20px;
 }
 
 .vote-summary-text {
-  margin-top: 15px;
+  margin: 10px;
+  color: #4caf50;
+}
+
+.answer-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.answer-container {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.answer-status-container {
+  margin-top: 20px;
+}
+
+.answer-status {
+  text-align: center;
+}
+
+.correct {
+  margin: 10px;
   color: #4caf50;
   font-weight: bold;
 }
 
-.instructions {
-  background-color: #e0e0e0;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.incorrect {
+  margin: 10px;
+  color: #dc3545;
+  font-weight: bold;
 }
 
-.instructions p {
+.warning-text {
+  color: #dc3545; /* Red color for warning */
+  font-weight: bold;
+}
+
+.lesson {
+  text-align: left;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.lesson h1 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.lesson h2 {
+  color: #007bff; /* Blue color for subheadings */
+}
+
+.lesson ul {
+  list-style: none;
+  padding: 0;
+}
+
+.lesson li {
   margin-bottom: 15px;
 }
 
-/* Responsive design */
-@media (max-width: 600px) {
-  .vote-container, .instructions {
-      padding: 15px;
-  }
+.lesson code {
+  background-color: #f8f9fa; /* Light gray background for code */
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+.lesson pre {
+  background-color: #f8f9fa; /* Light gray background for code block */
+  padding: 10px;
+  border-radius: 5px;
+  overflow-x: auto;
+  margin: 10px 0;
+  font-size: 14px;
+  text-align: left; /* Left-align the code block */
+}
+
+/* Optional: Add styles for code highlighting library, like Prism.js */
+pre code {
+  display: block;
+  font-family: monospace;
+  white-space: pre;
+  color: #333;
+}
+
+.lesson {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.lesson h1 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.role-title {
+  color: #007bff; /* Blue color for role titles */
+}
+
+.user-list,
+.dev-list {
+  list-style: none;
+  padding: 0;
+}
+
+.user-list h3,
+.dev-list h3,
+.dev-list h4 {
+  color: #007bff; /* Blue color for subheadings */
+}
+
+.dev-list ol {
+  list-style-type: decimal;
+  margin-left: 20px;
+}
+
+.dev-list code {
+  background-color: #f8f9fa; /* Light gray background for code */
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+.dev-list pre {
+  background-color: #f8f9fa; /* Light gray background for code block */
+  padding: 10px;
+  border-radius: 5px;
+  overflow-x: auto;
+  margin: 10px 0;
+  font-size: 14px;
+  text-align: left; /* Left-align the code block */
+}
+
+/* Optional: Add styles for links */
+a {
+  color: #007bff; /* Blue color for links */
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
