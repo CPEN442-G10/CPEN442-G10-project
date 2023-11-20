@@ -9,6 +9,7 @@
     <a class="forum-topic <%= topic === 'unsafe-space' ? 'active' : ''%>" data-topic="unsafe-space" href="/forum/unsafe-space" data-intro="Here you can see some stored XSS attack examples.">Unsafe Space</a>
     <a class="forum-topic <%= topic === 'playground' ? 'active' : ''%>" data-topic="play-ground" href="/forum/playground" data-intro="Here you can see malicious posts made by your and other students.">Playground</a>
     <a class="forum-topic <%= topic === 'safe-space' ? 'active' : ''%>" data-topic="safe-space" href="/forum/safe-space" data-intro="Here malicious posts won't work anymore!">Safe Space</a>
+    <a class="forum-topic <%= topic === 'bank-forum' ? 'active' : ''%>" data-topic="bank-forum" href="/forum/bank-forum" data-intro='Here you can post malicious posts to steal "money"'>Bank Forum</a>
   </nav>
 
   <div class="forum-container <%= topic %>">
@@ -18,8 +19,10 @@
     <%- include('./forum-posts/playground-posts.ejs') %>
     <%} else if (topic === 'safe-space') {%>
     <%- include('./forum-posts/safe-posts.ejs') %>
-    <%}%>
-    <form class="add-post-form" action="<%= topic === 'playground' ? '/forum/add-unsafe-post' : '/forum/add-safe-post' %>" method="POST" id="add-post-form">
+    <%} else if (topic === 'bank-forum') {%>
+    <%- include('./forum-posts/bank-posts.ejs') %>
+    <%} %>
+    <form class="add-post-form" action="<%= topic === 'playground' ? '/forum/add-unsafe-post' : topic === 'safe-space' ? '/forum/add-safe-post'  : '/forum/add-bank-post' %>" method="POST" id="add-post-form">
       <textarea id="post-content" name="postContent" required></textarea>
       <input type="submit"/>
     </form>

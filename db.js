@@ -18,6 +18,7 @@ db.serialize(function() {
     username TEXT, \
     content TEXT, \
     is_safe INTEGER, \
+    is_bank_post INTEGER DEFAULT 0, \
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, \
     FOREIGN KEY (user_id) REFERENCES users(id), \
     FOREIGN KEY (username) REFERENCES users(username) \
