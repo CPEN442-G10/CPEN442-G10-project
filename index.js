@@ -32,7 +32,7 @@ app.use(passport.authenticate('session'));
 
 app.use('/', authRouter);
 app.use('/', forumRouter);
-app.use(sqlInjectionRouter);
+app.use('/', sqlInjectionRouter);
 
 const PORT = 3000;
 app.listen(PORT, () => {
