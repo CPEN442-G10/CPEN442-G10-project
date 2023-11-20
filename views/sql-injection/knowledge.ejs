@@ -1,0 +1,42 @@
+<%- include('../common/head.ejs') %>
+    <link rel="stylesheet" href="/css/sql-injection/knowledge.css"> 
+</head>
+<body>
+    <div class="container">
+        <h1>Understanding SQL Injection</h1>
+
+        <section>
+            <h2>Task 1: Login Bypass</h2>
+            <p>Query used: <code>SELECT * FROM user WHERE username = '${username}' AND password = '${password}'</code>.</p>
+            <p><strong>Vulnerability:</strong> This query is vulnerable to SQL injection as it directly includes user input without sanitization, allowing an attacker to manipulate the SQL query.</p>
+            <p><strong>Real-world Consequence:</strong> Attackers could gain unauthorized access to user accounts, leading to data breaches and compromised system security.</p>
+            <p><strong>Mitigation:</strong> Use parameterized queries to safely handle user input, avoiding direct concatenation of variables in SQL statements.</p>
+        </section>
+
+        <section>
+            <h2>Task 2: Retrieve Hidden Data</h2>
+            <p>Query used: <code>SELECT * FROM merchandise WHERE name LIKE '%${req.body.search}%' AND hidden = false</code>.</p>
+            <p><strong>Vulnerability:</strong> Similar to the first task, this query is vulnerable as user input is directly concatenated, allowing for retrieval of hidden data.</p>
+            <p><strong>Real-world Consequence:</strong> Sensitive information could be exposed, leading to privacy violations and potential legal issues.</p>
+            <p><strong>Mitigation:</strong> Again, parameterized queries should be used to prevent SQL injection attacks.</p>
+        </section>
+
+        <section>
+            <h2>Task 3: Drop Table</h2>
+            <p>Using the same query as Task 2, an attacker could modify it to drop a table from the database.</p>
+            <p><strong>Vulnerability:</strong> The query's structure allows for additional malicious SQL commands to be executed.</p>
+            <p><strong>Real-world Consequence:</strong> This could lead to loss of data and severe disruptions in application functionality.</p>
+            <p><strong>Mitigation:</strong> Along with parameterized queries, restrict database permissions and regularly backup data.</p>
+        </section>
+
+        <section>
+            <h2>Further Reading</h2>
+            <p>SQL Injection can have various other consequences. Below are some resources for further reading:</p>
+            <ul>
+                <li><a href="https://www.owasp.org/index.php/SQL_Injection">OWASP: SQL Injection</a></li>
+                <li><a href="https://en.wikipedia.org/wiki/SQL_injection">Wikipedia: SQL Injection</a></li>
+                <li><a href="https://www.csoonline.com/article/3257427/what-is-sql-injection-how-it-works-and-how-to-prevent-it.html">CSO Online: Preventing SQL Injection</a></li>
+            </ul>
+        </section>
+    </div>
+<%- include('../common/end.ejs') %>

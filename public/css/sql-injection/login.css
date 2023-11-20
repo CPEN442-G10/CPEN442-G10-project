@@ -1,0 +1,33 @@
+.sql-injection-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.sql-injection-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.sql-injection-container input {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.sql-injection-container button {
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+}
+
+.sql-injection-container button:hover {
+    background-color: #218838;
+}
