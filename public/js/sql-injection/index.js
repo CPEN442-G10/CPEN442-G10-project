@@ -3,6 +3,8 @@ window.onload = function () {
         startIntro();
     } else if (progressNum == 1) {
         showDropTableHint();
+    } else if (progressNum == 2) {
+        showCongratulations();
     }
 };
 
@@ -25,5 +27,14 @@ function showDropTableHint() {
             element: document.querySelector('#searchBox'),
             intro: "Try dropping the table by injecting a DROP TABLE command."
         }]
+    }).start();
+}
+
+function showCongratulations() {
+    introJs().setOptions({
+        steps: [{
+            intro: "Congratulations! You have successfully completed the task. <a href='/sql-injection/knowledge'>Learn More</a>"
+        }],
+        doneLabel: 'Done'
     }).start();
 }

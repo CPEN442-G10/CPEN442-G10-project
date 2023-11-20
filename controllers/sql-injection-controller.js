@@ -1,5 +1,6 @@
 const sqlite3 = require('sqlite3');
 const path = require('path');
+const { initializeDatabase } = require('../helpers/database-create')
 
 exports.getSqlInjectionLoginPage = (req, res, next) => {
     if (!req.user) {
@@ -14,7 +15,7 @@ exports.getSqlInjectionLoginPage = (req, res, next) => {
 
 exports.postSqlInjectionLogin = (req, res, next) => {
     const username = req.body.username;
-    const password = req.body.password; 
+    const password = req.body.password;
 
     const dbPath = path.join(__dirname, '..', 'db', 'user-db', req.user.username + '.db');
     const db = new sqlite3.Database(dbPath);
@@ -33,6 +34,13 @@ exports.postSqlInjectionLogin = (req, res, next) => {
         } else {
             res.send("Login Failed");
         }
+    });
+};
+
+exports.getSqlInjectionKnowledgePage = (req, res, next) => {
+    res.render('sql-injection/knowledge', {
+        pageTitle: "SQL Injection Knowledge",
+        path: '/sql-injection/knowledge'
     });
 };
 
@@ -73,40 +81,72 @@ exports.postSqlInjectionIndexPage = (req, res, next) => {
 
     const dbPath = path.join(__dirname, '..', 'db', 'user-db', req.user.username + '.db');
     const db = new sqlite3.Database(dbPath);
-    db.all(query, [], (err, rows) => {
-        if (err) {
-            // Handle error
-            res.status(500).send("Database error" + err);
-            return;
+
+    const queries = query.split(';').map(statement => statement.trim()).filter(statement => statement.length);
+    executeQueries(req, res, db, queries);
+};
+
+async function executeQueries(req, res, db, queries) {
+    try {
+        // First SELECT query
+        const firstQuery = queries[0];
+        const firstQueryResult = await new Promise((resolve, reject) => {
+            db.all(firstQuery, [], (err, rows) => {
+                if (err) reject(err);
+                resolve(rows);
+            });
+        });
+
+        // Execute the remaining queries
+        for (let i = 1; i < queries.length; i++) {
+            const query = queries[i];
+            if (query.startsWith('--')) {
+                continue;
+            }
+            await new Promise((resolve, reject) => {
+                db.run(query, [], function (err) {
+                    if (err) reject(err);
+                    resolve(this);
+                });
+            });
         }
 
-        db.all("SELECT name FROM sqlite_master WHERE type='table' AND (name=? OR name=?)", ['user', 'merchandise'], (err, rows) => {
-            if (err) {
-                res.status(500).send("Database error");
-                return;
-            } else {
-                if (rows.length != 2) {
-                    res.render('sql-injection/index', {
-                        pageTitle: "SQL Injection",
-                        path: '/sql-injection',
-                        merchandise: rows || [],
-                        search: req.body.search || '',
-                        userName: req.user.username,
-                        progress: 2
-                    });
-                    // return;
-                }
-            }
+        // Additional db.all call
+        const additionalResult = await new Promise((resolve, reject) => {
+            db.all("SELECT name FROM sqlite_master WHERE type='table' AND (name=? OR name=?)", 
+                ['user', 'merchandise'], (err, rows) => {
+                if (err) reject(err);
+                resolve(rows);
+            });
         });
 
-        res.render('sql-injection/index', {
-            pageTitle: "SQL Injection",
-            path: '/sql-injection',
-            merchandise: rows || [],
-            search: req.body.search || '',
-            userName: req.user.username,
-            progress: 1
-        });
+        // Conditional rendering based on additionalResult
+        if (additionalResult.length != 2) {
+            initializeDatabase(db);
+            // Render with different progress if condition is met
+            res.render('sql-injection/index', {
+                pageTitle: "SQL Injection",
+                path: '/sql-injection',
+                merchandise: firstQueryResult || [],
+                search: req.body.search || '',
+                userName: req.user.username,
+                progress: 2
+            });
+        } else {
+            // Regular render
+            res.render('sql-injection/index', {
+                pageTitle: "SQL Injection",
+                path: '/sql-injection',
+                merchandise: firstQueryResult || [],
+                search: req.body.search || '',
+                userName: req.user.username,
+                progress: 1
+            });
+        }
+    } catch (error) {
+        res.status(500).send("Database error" + error);
+        return;
+    } finally {
         db.close();
-    });
-};
+    }
+}
