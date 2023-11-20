@@ -38,6 +38,7 @@ const loginAuthenticator = passport.authenticate("local", {
   failureRedirect: "/login"
 })
 
+// TODO: move this to a middleware folder
 const routeProtector = (req, res, next) => {
   // console.log(req.user);
   if (!req.user) {

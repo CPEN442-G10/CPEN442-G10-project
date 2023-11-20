@@ -1,5 +1,6 @@
 const crypto = require("crypto");
 const db = require("../db");
+const { createUserDatabase } = require('../helpers/database-create');
 
 exports.redirectLogInPage = (req, res) => {
     res.redirect("/login");
@@ -30,14 +31,15 @@ exports.signupAction = (req, res, next) => {
     crypto.pbkdf2(req.body.signupPassword, salt, 310000, 32, 'sha256', function(err, hashedPassword) {
       if (err) { return next(err); }
       db.run('INSERT INTO users (username, hashed_password, salt) VALUES (?, ?, ?)', [
-        req.body.username,
+        req.body.signupUsername,
         hashedPassword,
         salt
       ], function(err) {
         if (err) { return next(err); }
+        createUserDatabase(req.body.signupUsername);
         var user = {
           id: this.lastID,
-          username: req.body.username
+          username: req.body.signupUsername
         };
         req.login(user, function(err) {
           if (err) { return next(err); }

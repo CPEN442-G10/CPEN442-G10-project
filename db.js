@@ -1,5 +1,6 @@
 var sqlite3 = require('sqlite3');
 var crypto = require('crypto');
+const { createUserDatabase } = require('./helpers/database-create');
 
 var db = new sqlite3.Database('./db/g10.db');
 
@@ -29,6 +30,7 @@ db.serialize(function() {
     crypto.pbkdf2Sync('letmein', salt, 310000, 32, 'sha256'),
     salt
   ]);
+  createUserDatabase('alice');
 });
 
 module.exports = db;

@@ -1,4 +1,5 @@
 const express = require("express");
+const sqlite3 = require('sqlite3');
 const path = require("path");
 const app = express();
 const bodyParser = require("body-parser");
@@ -10,6 +11,7 @@ const {
 } = require("./routes/auth-routes");
 const forumRouter = require("./routes/forum-routes");
 const reflectedRouter = require("./routes/reflected-routes");
+const sqlInjectionRouter = require('./routes/sql-injection-routes');
 
 app.set("view engine", "ejs");
 app.set("views", "views");
@@ -34,6 +36,7 @@ app.use(passport.authenticate('session'));
 app.use("/", authRouter);
 app.use("/", forumRouter);
 app.use("/", reflectedRouter);
+app.use('/', sqlInjectionRouter);
 
 const PORT = 3000;
 app.listen(PORT, () => {
