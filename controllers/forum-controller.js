@@ -38,7 +38,21 @@ exports.getForumTopic = (req, res) => {
         topic,
         safePosts: rows
       });
-    });
+    }); 
+  } else if (topic == "bank-forum") {
+    db.all("SELECT * FROM posts where is_bank_post=1 ORDER BY creation_date desc LIMIT 10", [], (err, rows) => {
+      if (err) {
+        console.log("error on 45")
+        console.error(err.message);
+        return;
+      }
+      res.render("forum", {
+        pageTitle: "Forum",
+        path: "/forum",
+        topic,
+        bankPosts: rows 
+      });
+    }); 
   }
 }
 
@@ -59,8 +73,6 @@ exports.addUnsafePost = (req, res) => {
 }
 
 exports.addSafePost = (req, res) => {
-  console.log(req.user, 56);
-  console.log(req.body);
   db.run("INSERT OR IGNORE INTO posts (user_id, username, content, is_safe) VALUES (?, ?, ?, ?)", [
     req.user.id,
     req.user.username,
@@ -68,5 +80,18 @@ exports.addSafePost = (req, res) => {
     1
   ])
   res.redirect("/forum/safe-space");
+}
+
+exports.addBankPost = (req, res) => {
+  console.log(req.user, 85);
+  console.log(req.body);
+  db.run("INSERT OR IGNORE INTO posts (user_id, username, content, is_safe, is_bank_post) VALUES (?, ?, ?, ?, ?)", [
+    req.user.id,
+    req.user.username,
+    req.body.postContent,
+    2,
+    1
+  ])
+  res.redirect("/forum/bank-forum");
 }
 
