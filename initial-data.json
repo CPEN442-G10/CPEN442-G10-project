@@ -1,0 +1,8 @@
+{
+    "users": ["alice", "bob", "carol", "dave" ],
+    "merchandise": [
+      { "name": "Item 1", "quantity": 10, "price": 19.99, "hidden": false },
+      { "name": "Item 2", "quantity": 5, "price": 29.99, "hidden": true }
+    ]
+  }
+  
