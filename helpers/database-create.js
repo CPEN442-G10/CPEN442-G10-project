@@ -25,30 +25,30 @@ const initializeDatabase = (db) => {
   `;
 
   db.serialize(() => {
-      // Create tables
-      db.run(createUserTableSql);
-      db.run(createMerchandiseTableSql);
+    // Create tables
+    db.run(createUserTableSql);
+    db.run(createMerchandiseTableSql);
 
-      const initialDataPath = path.join(__dirname, '..', 'initial-data.json');
-      // Insert initial data if the file exists
-      if (fs.existsSync(initialDataPath)) {
-          const initialData = JSON.parse(fs.readFileSync(initialDataPath, 'utf8'));
+    const initialDataPath = path.join(__dirname, '..', 'initial-data.json');
+    // Insert initial data if the file exists
+    if (fs.existsSync(initialDataPath)) {
+      const initialData = JSON.parse(fs.readFileSync(initialDataPath, 'utf8'));
 
-          // Insert initial users with INSERT OR IGNORE to avoid duplicates
-          const insertUserSql = `INSERT OR IGNORE INTO user (username, password) VALUES (?, ?)`;
-          initialData.users.forEach(user => {
-              const password = crypto.randomBytes(8).toString('hex'); // Random password
-              db.run(insertUserSql, [user.username, password]);
-          });
+      // Insert initial users with INSERT OR IGNORE to avoid duplicates
+      const insertUserSql = `INSERT OR IGNORE INTO user (username, password) VALUES (?, ?)`;
+      initialData.users.forEach(user => {
+        const password = crypto.randomBytes(8).toString('hex'); // Random password
+        db.run(insertUserSql, [user, password]);
+      });
 
-          // Insert initial merchandise with INSERT OR IGNORE to avoid duplicates
-          const insertMerchandiseSql = `INSERT OR IGNORE INTO merchandise (name, quantity, price, hidden) VALUES (?, ?, ?, ?)`;
-          initialData.merchandise.forEach(item => {
-              db.run(insertMerchandiseSql, [item.name, item.quantity, item.price, item.hidden]);
-          });
-      } else {
-          console.error('Initial data file not found:', initialDataPath);
-      }
+      // Insert initial merchandise with INSERT OR IGNORE to avoid duplicates
+      const insertMerchandiseSql = `INSERT OR IGNORE INTO merchandise (name, quantity, price, hidden) VALUES (?, ?, ?, ?)`;
+      initialData.merchandise.forEach(item => {
+        db.run(insertMerchandiseSql, [item.name, item.quantity, item.price, item.hidden]);
+      });
+    } else {
+      console.error('Initial data file not found:', initialDataPath);
+    }
   });
 };
 
@@ -60,7 +60,7 @@ const createUserDatabase = (username) => {
   }
 
   const dbPath = path.join(dbDirectory, `${username}.db`);
-  
+
   // Check if the database already exists
   const db = new sqlite3.Database(dbPath, (err) => {
     if (err) {
