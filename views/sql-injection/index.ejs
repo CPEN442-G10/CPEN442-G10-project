@@ -1,23 +1,23 @@
 <%- include('../common/head.ejs') %>
-    <link rel="stylesheet" href="/css/sql-injection.css">
+    <link rel="stylesheet" href="/css/sql-injection.css"> 
 </head>
 
 <body>
     <%- include('../common/navbar.ejs') %>
 
     <div class="container">
-        <h1>Merchandise</h1>
+        <h1>Online Store</h1>
         <p>Welcome back to the store, <%= userName %>!</p>
         <form action="/sql-injection" method="POST">
-            <input type="text" name="search" value="<%= search %>" placeholder="Search merchandise...">
+            <input id="searchBox" type="text" name="search" value="<%= search %>" placeholder="Search merchandise...">
             <button type="submit">Search</button>
         </form>
 
         <table>
             <tr>
-                <th>Name</th>
-                <th>Quantity</th>
-                <th>Price</th>
+                <th>Merchandise Name</th>
+                <th>Merchandise Quantity</th>
+                <th>Merchandise Price</th>
             </tr>
             <% merchandise.forEach(item => { %>
                 <tr>
@@ -29,4 +29,8 @@
         </table>
     </div>
 
+    <script>
+        var progressNum = JSON.parse('<%- JSON.stringify(progress) %>');
+    </script>
+    <script src="/js/sql-injection/index.js"></script>
 <%- include('../common/end.ejs') %>

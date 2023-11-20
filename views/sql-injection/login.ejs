@@ -6,11 +6,11 @@
 
     <div class="sql-injection-container">
         <form action="/sql-injection/login" method="POST">
-            <h1>SQL Injection Login</h1>
-            <input type="text" placeholder="Username" name="username" required>
-            <input type="password" placeholder="Password" name="password" required>
-            <button type="submit">Login</button>
+            <h1 data-intro="This store only open to limited members.">Online Store Login</h1>
+            <input type="text" placeholder="Username" name="username" required data-intro="Through social engineering, you find there are four existing users: alice, bob, carol and dave.">
+            <input type="password" placeholder="Password" name="password" required data-hint="The store uses one SQL query to find if a username and password combination exists in the database for simplicity.">
+            <button type="submit" data-intro="This store has a vulnerable login mechanism. Exploit it and login as an existing user.">Login</button>
         </form>
     </div>
-
+    <script src="/js/sql-injection/login.js" > </script>
 <%- include('../common/end.ejs') %>

@@ -37,7 +37,7 @@ exports.postSqlInjectionLogin = (req, res, next) => {
 };
 
 exports.getSqlInjectionIndexPage = (req, res, next) => {
-    const searchQuery = req.query.search || '';
+    const searchQuery = req.body.search || '';
 
     const dbPath = path.join(__dirname, '..', 'db', 'user-db', req.user.username + '.db');
     const db = new sqlite3.Database(dbPath);
@@ -54,18 +54,21 @@ exports.getSqlInjectionIndexPage = (req, res, next) => {
             path: '/sql-injection',
             merchandise: rows || [],
             search: searchQuery || '',
-            userName: req.user.username
+            userName: req.user.username,
+            progress: 0
         });
         db.close();
     });
 };
 
 exports.postSqlInjectionIndexPage = (req, res, next) => {
-    let query = "SELECT * FROM merchandise"; // Adjust table name and fields as per your DB schema
+    let query = "SELECT * FROM merchandise";
 
     // If there's a search query, modify the SQL query for search
-    if (req.query.search) {
-        query += ` WHERE name LIKE '%${req.query.search}%'`; // Vulnerable to SQL Injection
+    if (req.body.search) {
+        query += ` WHERE name LIKE '%${req.body.search}%' AND hidden = false`;
+    } else {
+        query += ` WHERE hidden = false`;
     }
 
     const dbPath = path.join(__dirname, '..', 'db', 'user-db', req.user.username + '.db');
@@ -73,15 +76,36 @@ exports.postSqlInjectionIndexPage = (req, res, next) => {
     db.all(query, [], (err, rows) => {
         if (err) {
             // Handle error
-            res.status(500).send("Database error");
+            res.status(500).send("Database error" + err);
             return;
         }
+
+        db.all("SELECT name FROM sqlite_master WHERE type='table' AND (name=? OR name=?)", ['user', 'merchandise'], (err, rows) => {
+            if (err) {
+                res.status(500).send("Database error");
+                return;
+            } else {
+                if (rows.length != 2) {
+                    res.render('sql-injection/index', {
+                        pageTitle: "SQL Injection",
+                        path: '/sql-injection',
+                        merchandise: rows || [],
+                        search: req.body.search || '',
+                        userName: req.user.username,
+                        progress: 2
+                    });
+                    // return;
+                }
+            }
+        });
+
         res.render('sql-injection/index', {
             pageTitle: "SQL Injection",
             path: '/sql-injection',
             merchandise: rows || [],
-            search: req.query.search || '',
-            userName: req.user.username
+            search: req.body.search || '',
+            userName: req.user.username,
+            progress: 1
         });
         db.close();
     });
