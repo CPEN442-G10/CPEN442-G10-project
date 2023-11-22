@@ -1,0 +1,15 @@
+<div class="forum-posts">
+    <div class="post" >
+      <h3>Alice</h3>
+      <p>
+        Have fun!
+      </p>
+    </div>
+    <% for (let post of unsafePosts) { %>
+    <div class="post" >
+      <h3><%= post.username %> </h3>
+      <i><%= post.creation_date %></i>
+      <p><%- post.content %></p>
+    </div>
+    <% } %>
+</div>

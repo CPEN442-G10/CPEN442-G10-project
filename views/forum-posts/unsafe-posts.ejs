@@ -1,0 +1,33 @@
+<div class="forum-posts" data-intro="Here contains many XSS attack examples! Follow the Hints to learn more!">
+    <div class="post" >
+      <h3>Eve A</h3>
+      <p data-hint="Investigate this post to find out where the alert that pop up in when you open the page come from." data-hint-position="top-left">
+        This a very helpful post!!
+        <script>
+          alert(`Hi victim student, welcome!`);
+        </script>
+      </p>
+    </div>
+    <div class="post">
+      <h3>Eve B</h3>
+      <p  data-hint="Investigate how you can inject js code in anchor tag." data-hint-position="top-left">Guys I found this incredible 
+        <!-- <a href="javascript:alert('Haha, gotcha!')">article</a> about cyber security. Check it out!</p> -->
+        <a href="/forum/trap/eveB" data-hint="Pay attention to the url format.">article</a> about cyber security. Check it out!</p>
+    </div>
+    <div class="post">
+      <h3>Eve C</h3>
+      <p data-hint="Investigate this SUPER annoying XSS attack." data-hint-position="top-left">
+        \<a onmouseover="alert('Gotcha!')"\>\</a\>
+        Hover over this post to see some interesting stuff
+      </p>
+    </div>
+    <div class="post">
+      <h3>Eve D</h3>
+      <p>
+        Click to pet my cute dog!
+        <img src="https://images.unsplash.com/photo-1608096299210-db7e38487075?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80;" 
+        onclick="javascript:alert(`My dog would love to take your cookie as well! \n ${document.cookie}`)"
+        />
+      </p>
+    </div>
+</div>
