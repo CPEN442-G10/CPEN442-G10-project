@@ -5,6 +5,7 @@
     <body>
 
         <%- include('./common/navbar.ejs') %>
+
             <html lang="en">
 
             <head>
@@ -16,42 +17,80 @@
 
             <body>
                 <header>
-                    <h1>Welcome to My Bank</h1>
+                    <h1>Welcome to Dumb Bank</h1>
                 </header>
 
                 <main>
+                    <div class="tabs">
+                        <button class="tab-button" onclick="openTab('account-info')">Account Information</button>
+                        <button class="tab-button" onclick="openTab('transaction-get')">Make a Transaction
+                            (GET)</button>
+                        <button class="tab-button" onclick="openTab('transaction-post')">Make a Transaction
+                            (POST)</button>
+                    </div>
 
-                    <div class="container">
-                        <nav class="left-menu">
-                            <a class="forum-topic <%= topic === 'account' ? 'active' : ''%>" data-topic="account"
-                                href="/bank/account"
-                                data-intro="Here you can see some stored XSS attack examples.">Account Details</a>
-                            <a class="forum-topic <%= topic === 'playground' ? 'active' : ''%>" data-topic="play-ground"
-                                href="/forum/playground"
-                                data-intro="Here you can see malicious posts made by your and other students.">Playground</a>
-                            <a class="forum-topic <%= topic === 'safe-space' ? 'active' : ''%>" data-topic="safe-space"
-                                href="/forum/safe-space" data-intro="Here malicious posts won't work anymore!">Safe
-                                Space</a>
-                        </nav>
-
-                        <div class="forum-container <%= topic %>">
-                            <% if (topic==='unsafe-space' ) { %>
-                                <%- include('./bank-pages/account.ejs') %>
-                                    <%} else if (topic==='playground' ) {%>
-                                        <%- include('./bank-pages/get-transaction.ejs') %>
-                                            <%} else if (topic==='safe-space' ) {%>
-                                                <%- include('./bank-pages/post-transaction.ejs') %>
-                                                    <%}%>
+                    <div class="tab-content" id="account-info">
+                        <div class="account-info">
+                            <h2>Account Information</h2>
+                            <p id="name">Account Holder: <%= name %>
+                            </p>
+                            <p id="balance">Balance: $<%= balance %>
+                            </p>
                         </div>
                     </div>
 
+                    <div class="tab-content" id="transaction-get">
+                        <div class="transaction-form">
+                            <form class="form-card" id="login-form" action="/bank/transfer" method="GET">
+                                <h2>Make a Transaction (GET)</h2>
+                                <div class="form-control">
+                                    <label for="account">Account:</label>
+                                    <input type="text" id="amount" name="account" placeholder="Enter account username">
+                                </div>
+                                <div class="form-control">
+                                    <label for="amount">Amount:</label>
+                                    <input type="text" id="amount" name="amount" placeholder="Enter amount">
+                                </div>
+                                <button class="btn" type="submit">Submit</button>
+                            </form>
+                        </div>
+                    </div>
 
+                    <div class="tab-content" id="transaction-post">
+                        <div class="transaction-form">
+                            <form class="form-card" id="login-form" action="/bank/transfer" method="POST">
+                                <h2>Make a Transaction (POST)</h2>
+                                <div class="form-control">
+                                    <label for="account">Account:</label>
+                                    <input type="text" id="amount" name="account" placeholder="Enter account username">
+                                </div>
+                                <div class="form-control">
+                                    <label for="amount">Amount:</label>
+                                    <input type="text" id="amount" name="amount" placeholder="Enter amount">
+                                </div>
+                                <button class="btn" type="submit">Submit</button>
+                            </form>
+                        </div>
+                    </div>
                 </main>
 
-
-
                 <footer>
-                    <p>&copy; 2023 My Bank</p>
+                    <p>&copy; 2023 Dumb Bank</p>
                 </footer>
 
                 <%- include('./common/end.ejs') %>
+
+                    <script>
+                        openTab("account-info")
+                        function openTab(tabName) {
+                            const tabs = document.querySelectorAll('.tab-content');
+                            tabs.forEach(tab => tab.style.display = 'none');
+
+                            const selectedTab = document.getElementById(tabName);
+                            if (selectedTab) {
+                                selectedTab.style.display = 'block';
+                            }
+                        }
+                    </script>
+
+            </body>
