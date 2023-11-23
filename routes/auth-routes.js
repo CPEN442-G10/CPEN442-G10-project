@@ -34,7 +34,7 @@ passport.deserializeUser(function (user, cb) {
 });
 
 const loginAuthenticator = passport.authenticate("local", {
-  successRedirect: "/forum",
+  successRedirect: "/home",
   failureRedirect: "/login"
 })
 

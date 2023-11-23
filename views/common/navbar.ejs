@@ -1,13 +1,13 @@
 <nav class="navbar">
   <div>
-    <a class="<%= path === '/' ? 'active' : ''%>"class="active" href="/">Home</a>
+    <a class="<%= path === '/home' ? 'active' : ''%>"class="active" href="/home">Home</a>
     <a class="<%= path === '/forum' ? 'active' : ''%>"class="active" href="/forum">Forum (Stored XSS Attack)</a>
     <a class="<%= path === '/sql-injection' ? 'active' : ''%>"class="active" href="/sql-injection/login">Store (SQL Injection)</a>
     <a class="<%= path === '/vote' ? 'active' : ''%>"class="active" href="/vote">User Survey (Reflected XSS Attack)</a>
     <a class="<%= path === '/xsrf' ? 'active' : ''%>"class="active" href="/xsrf">Ilam</a>
   </div>
   <form class="logout-form" action="/logout" method="POST">
-    <a class="<%= path === '/profile' ? 'active' : ''%>"class="active" href="/hints">My Profile</a>
+    <!-- <a class="<%= path === '/profile' ? 'active' : ''%>"class="active" href="/profile">My Profile</a> -->
     <input type="submit" value="Logout" />
   </form>
 </nav>

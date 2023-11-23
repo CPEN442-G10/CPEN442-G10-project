@@ -1,0 +1,52 @@
+<%- include('./common/head.ejs') %>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+
+<body>
+<%- include('./common/navbar.ejs') %>
+    <header>
+        <h1>Welcome to XSS Attack Simulations</h1>
+        <h4>Made by Chris, Qiyu, Ilam, and Jason</h4>
+    </header>
+
+    <main>
+        <section id="introduction">
+            <h2>About Our Project</h2>
+            <p>
+                Learn about web security through interactive XSS attack simulations! Our project provides a hands-on experience for students to understand and defend against different types of XSS attacks.
+            </p>
+        </section>
+
+        <section id="games-overview">
+            <h2>Our Interactive Games</h2>
+            <div id="stored-xss">
+                <h3>Stored XSS Attack</h3>
+                <p>Experience how stored XSS attacks are carried out and learn to safeguard web applications.</p>
+            </div>
+            <div id="reflected-xss">
+                <h3>Reflected XSS Attack</h3>
+                <p>Understand the mechanisms of reflected XSS attacks through interactive surveys and URL crafting.</p>
+            </div>
+            <div id="sql-injection">
+                <h3>SQL Injection Attack</h3>
+                <p>Learn about SQL injection vulnerabilities by hacking into a simulated store's database.</p>
+            </div>
+            <div id="xsrf-attack">
+                <h3>XSRF Attack</h3>
+                <p>Explore Cross-Site Request Forgery in a banking context and learn to secure transactions.</p>
+            </div>
+        </section>
+
+        <section id="learning-objectives">
+            <h2>What You Will Learn</h2>
+            <div>
+                <p>Identifying various XSS vulnerabilities</p>
+                <p>Understanding the attacker's perspective</p>
+                <p>Implementing effective security measures</p>
+                <p>Hands-on experience with real-world scenarios</p>
+            </div>
+        </section>
+    </main>
+</body>
+<%- include('./common/end.ejs') %>
