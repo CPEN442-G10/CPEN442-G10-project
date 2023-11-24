@@ -1,14 +1,18 @@
 <div class="forum-posts">
-    <div class="post" >
-      <h3>Carol</h3>
-      <p>
-        Feel free to add posts that are relevent to Dumb Bank.
-      </p>
-    </div>
-    <% for (let post of bankPosts) { %>
-    <div class="post" >
-      <h3><%= post.username %> </h3>
-      <i><%= post.creation_date %></i>
+  <div class="post">
+    <h3>Carol</h3>
+    <p>
+      Feel free to add posts that are relevent to SecureFunds Bank.
+    </p>
+  </div>
+  <% for (let post of bankPosts) { %>
+    <div class="post">
+      <h3>
+        <%= post.username %>
+      </h3>
+      <i>
+        <%= post.creation_date %>
+      </i>
       <p><%- post.content %></p>
     </div>
     <% } %>
