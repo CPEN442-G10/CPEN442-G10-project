@@ -9,6 +9,7 @@ var SQLiteStore = require("connect-sqlite3")(session);
 const {
   router: authRouter,
 } = require("./routes/auth-routes");
+const homeRouter = require("./routes/home-routes");
 const forumRouter = require("./routes/forum-routes");
 const reflectedRouter = require("./routes/reflected-routes");
 const sqlInjectionRouter = require('./routes/sql-injection-routes');
@@ -35,6 +36,7 @@ app.use(session({
 app.use(passport.authenticate('session'));
 
 app.use("/", authRouter);
+app.use("/", homeRouter);
 app.use("/", forumRouter);
 app.use("/", reflectedRouter);
 app.use('/', sqlInjectionRouter);

@@ -27,7 +27,7 @@
         Your vote has been recorded. Thank you for voting for <%- vote %>.
       </p>
       <% if (tried_script) { %>
-      <p class="warning-text" data-hint="This server has a naive way of dealing with attempted. Try using an image with a non-existent source called 'x'.">Warning: User attempted reflected XSS with script tag.</p>
+      <p class="warning-text" data-hint="This server has a naive way of dealing with attempted script injection. It removes any script tags. Try using an image with a non-existent source called 'x'.">Warning: User attempted reflected XSS with script tag.</p>
       <% } %>
       <% } %>
     </div>
@@ -75,7 +75,7 @@
               <li>Users interact with the web server directly instead of using the browser?</li>
             </ol>
             <p>
-              The server in this exercise had a naive way of dealing with attempted XSS using <code>&lt;script&gt; ... &lt;/script&gt;</code> tags, which was to remove them altogether. But, what if someone wants to send a code snippet? We need to be able to support this.
+              The server in this exercise had a naive way of dealing with attempted XSS using <code>&lt;script&gt; ... &lt;/script&gt;</code> tags, which was to remove them altogether. But, what if someone wants to send a code snippet? We need to be able to support this in our application.
             </p>
             <h3>Escaping</h3>
             <p>
@@ -93,7 +93,7 @@
           </li>
         </ul>
         <div class="tip">
-          To mitigate number of XSS bugs in your next web app, consider developing with a modern web framework such as <code>React.js</code> or <code>Angular.js</code>. This is only a start point though, as they are not perfect. So, understanding the safe practices outlined above is still valuable. 
+          To mitigate number of XSS bugs in your next web app, consider developing with a modern web framework such as <code>React.js</code> or <code>Angular.js</code>. This is only a start point though, as they are not perfect. So, understanding the safe practices outlined above is still valuable.
         </div>
       </div>
       <% } else if(answer_status == "incorrect") { %>
