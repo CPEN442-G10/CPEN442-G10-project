@@ -16,7 +16,10 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding-bottom: 100px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
 }
 
 .tabs {
@@ -109,4 +112,56 @@ footer {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.tab-content h2 {
+    text-align: center;
+}
+
+/* Media query for tablets */
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+    }
+
+    .tabs {
+        flex-direction: column;
+    }
+
+    .tab-button {
+        margin-bottom: 10px;
+    }
+
+    .tab-content {
+        width: 90%;
+    }
+
+    .account-info,
+    .transaction-form {
+        width: 90%;
+    }
+}
+
+/* Media query for mobile devices */
+@media (max-width: 480px) {
+    main {
+        padding: 10px;
+    }
+
+    .tabs {
+        flex-direction: column;
+    }
+
+    .tab-button {
+        margin-bottom: 10px;
+    }
+
+    .tab-content {
+        width: 100%;
+    }
+
+    .account-info,
+    .transaction-form {
+        width: 100%;
+    }
 }

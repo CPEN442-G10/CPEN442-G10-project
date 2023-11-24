@@ -45,6 +45,4 @@ const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server started on http://localhost:${PORT}`);
   // require("openurl").open(`http://localhost:${PORT}`);
-  console.log(`Server started on http://localhost:${PORT}`);
-  // require("openurl").open(`http://localhost:${PORT}`);
 });
