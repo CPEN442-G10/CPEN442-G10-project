@@ -1,0 +1,96 @@
+<%- include('./common/head.ejs') %>
+    <link rel="stylesheet" href="/css/bank.css">
+    </head>
+
+    <body>
+
+        <%- include('./common/navbar.ejs') %>
+
+            <html lang="en">
+
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link rel="stylesheet" href="styles.css">
+                <title>Bank</title>
+            </head>
+
+            <body>
+                <header>
+                    <h1>Welcome to Dumb Bank</h1>
+                </header>
+
+                <main>
+                    <div class="tabs">
+                        <button class="tab-button"
+                            data-hint="Here you can view your account information with your name and balance."
+                            data-hint-position="top-right" onclick="openTab('account-info')">Account
+                            Information</button>
+                        <button class="tab-button" data-hint="Inspect the code to see how the transaction is made."
+                            data-hint-position="top-right" onclick="openTab('transaction-get')">Make a Transaction
+                            (GET)</button>
+                        <button class="tab-button"
+                            data-hint="You might think this is hard, but it is actually very easy. Inspect the code to see how the transaction is made."
+                            data-hint-position="top-right" onclick="openTab('transaction-post')">Make a Transaction
+                            (POST)</button>
+                    </div>
+
+                    <div class="tab-content" id="account-info">
+                        <div class="account-info">
+                            <h2>Account Information</h2>
+                            <p id="name">Account Holder: <%= name %>
+                            </p>
+                            <p id="balance">Balance: $<%= balance %>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="transaction-get">
+                        <div class="transaction-form">
+                            <form class="form-card" id="login-form-get" action="/bank/transfer" method="GET">
+                                <h2>Make a Transaction (GET)</h2>
+                                <div class="form-control">
+                                    <label for="account">Account:</label>
+                                    <input type="text" id="amount-get" name="account"
+                                        placeholder="Enter account username">
+                                </div>
+                                <div class="form-control">
+                                    <label for="amount">Amount:</label>
+                                    <input type="text" id="amount-get" name="amount" placeholder="Enter amount">
+                                </div>
+                                <button class="btn" type="submit">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="transaction-post">
+                        <div class="transaction-form">
+                            <form class="form-card" id="login-form-post" action="/bank/transfer" method="POST">
+                                <h2>Make a Transaction (POST)</h2>
+                                <div class="form-control">
+                                    <label for="account">Account:</label>
+                                    <input type="text" id="amount-post" name="account"
+                                        placeholder="Enter account username">
+                                </div>
+                                <div class="form-control">
+                                    <label for="amount">Amount:</label>
+                                    <input type="text" id="amount-post" name="amount" placeholder="Enter amount">
+                                </div>
+                                <button class="btn" type="submit">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <p>Your objective make someone from the bank forum to make a transaction to your account using both
+                        get and post requests.
+                    </p>
+                </main>
+
+                <footer>
+                    <p>&copy; 2023 Dumb Bank</p>
+                </footer>
+
+                <%- include('./common/end.ejs') %>
+
+                    <script src="/js/bank.js"> </script>
+            </body>

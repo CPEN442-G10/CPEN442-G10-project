@@ -13,13 +13,14 @@ const homeRouter = require("./routes/home-routes");
 const forumRouter = require("./routes/forum-routes");
 const reflectedRouter = require("./routes/reflected-routes");
 const sqlInjectionRouter = require('./routes/sql-injection-routes');
+const bankRouter = require("./routes/bank-routes");
 
 app.set("view engine", "ejs");
 app.set("views", "views");
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({
-    extended: true
+  extended: true
 }));
 app.use(session({
   secret: 'keyboard cat',
@@ -29,7 +30,7 @@ app.use(session({
   cookie: {
     httpOnly: false,
     secure: false,
-    maxAge: 1000*60*30,
+    maxAge: 1000 * 60 * 30,
   }
 }));
 app.use(passport.authenticate('session'));
@@ -39,6 +40,8 @@ app.use("/", homeRouter);
 app.use("/", forumRouter);
 app.use("/", reflectedRouter);
 app.use('/', sqlInjectionRouter);
+app.use('/', bankRouter)
+
 
 const PORT = 3000;
 app.listen(PORT, () => {
